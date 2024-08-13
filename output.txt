@@ -1,0 +1,828 @@
+00:00 [32m+0[0m: [1m[90mloading day15.dart[0m[0m                                                                                                                                                                           00:00 [32m+0[0m: Day15 Part 1 Sample[0m                                                                                                                                                                          00:00 [32m+0[0m: Day15 Part 1 Sample[0m                                                                                                                                                                          
+0
+#######
+#.G...#
+#...EG#
+#.#.#G#
+#..G#E#
+#.....#
+#######
+Position(2, 1)
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(3, 4)
+Position(5, 4)
+1
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+2
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+3
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+4
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+5
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+6
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+7
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+8
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+9
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+10
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+11
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+12
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+13
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+14
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+15
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+16
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+17
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+18
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+19
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+20
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+21
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+22
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+23
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+24
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+25
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+26
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+27
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+28
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+29
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+30
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+31
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+32
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+33
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+34
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+35
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+36
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+37
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+38
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+39
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+40
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+41
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+42
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+43
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+44
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+45
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+46
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+47
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+48
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+49
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+50
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+51
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+52
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+53
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+54
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+55
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+56
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+57
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+58
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+59
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+60
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+61
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+62
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+63
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+64
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+65
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 2)
+Position(5, 3)
+Position(5, 4)
+66
+#######
+#.....#
+#...EG#
+#.#.#G#
+#...#E#
+#.....#
+#######
+Position(4, 2)
+Position(5, 3)
+67
+#######
+#.....#
+#...E.#
+#.#.#G#
+#...#.#
+#.....#
+#######
+Position(4, 2)
+Position(5, 3)
+00:00 [32m+0[0m[31m -1[0m: Day15 Part 1 Sample [1m[31m[E][0m[0m                                                                                                                                                                   
+  Expected: <27730>
+    Actual: <134>
+  
+  package:matcher   expect
+  day15.dart 21:28  main.<fn>.<fn>.<fn>
+  
+
+[1m[36mTo run this test again:[0m dart test day15.dart -p vm --plain-name 'Day15 Part 1 Sample'
+00:00 [32m+0[0m[31m -1[0m: [31mSome tests failed.[0m                                                                                                                                                                        
+
+Consider enabling the flag chain-stack-traces to receive more detailed exceptions.
+For example, 'dart test --chain-stack-traces'.

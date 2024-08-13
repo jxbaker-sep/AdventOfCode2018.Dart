@@ -25,3 +25,16 @@ ChoiceParser<T> choice4<T>(Parser<T> c1, Parser<T> c2, Parser<T> c3, Parser<T> c
 ChoiceParser<T> choice5<T>(Parser<T> c1, Parser<T> c2, Parser<T> c3, Parser<T> c4) => [c1,c2,c3, c4].toChoiceParser();
 
 ChoiceParser<String> oneOf(List<String> choices) => ChoiceParser(choices.map((s) => string(s).trim()));
+
+Parser<(T1, T2)> parserFor2<T1, T2>(String format, Parser<T1> p1, Parser<T2> p2) {
+  final matches = RegExp(r"\{\}").allMatches(format).toList();
+  final a1 = format.substring(0, matches[0].start);
+  final a2 = format.substring(matches[0].end, matches[1].start);
+  final a3 = format.substring(matches[1].end);
+  var xp1 = p1;
+  var xp2 = p2;
+  if (a1.isNotEmpty) xp1 = xp1.before(a1);
+  if (a2.isNotEmpty) xp1 = xp1.after(a2);
+  if (a3.isNotEmpty) xp2 = xp2.after(a3);
+  return seq2(xp1, xp2);
+}
