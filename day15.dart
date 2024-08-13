@@ -40,14 +40,23 @@ int do1(Grid grid) {
 
 int do2(final Grid grid) {
   final startingElves = grid.values.whereType<Elf>().length;
-  for (final power in xrange(2000)) 
-  {
-    final (rounds, g) = fight(grid.cloneWithElvesHavingPower(power + 4));
-    if (g.values.whereType<Elf>().length != startingElves) continue;
-    print(power);
-    return rounds * g.values.whereType<Creature>().map((c) => c.hitPoints).sum;
+  int good = 200; // if attack power 200 wont save the elves, nothing will
+  int goodScore = 0;
+  int bad = 3;
+  while (true) {
+    if (bad >= good) throw Exception();
+    if (good == bad + 1) return goodScore;
+    int power = (good + bad) ~/ 2;
+    final (rounds, g) = fight(grid.cloneWithElvesHavingPower(power));
+    bool elvesWin = (g.values.whereType<Elf>().length == startingElves);
+    if (elvesWin) {
+      goodScore = rounds * g.values.whereType<Creature>().map((c) => c.hitPoints).sum;
+      good = power;
+      continue;
+    }
+    bad = power;
+    // print(power);
   }
-  throw Exception();
 }
 
 (int, Grid) fight(Grid grid) {
