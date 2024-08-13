@@ -24,6 +24,8 @@ Future<void> main() async {
       test('Data', () => expect(do1(data), equals(229798)));
     });
     group('Part 2', () {
+      test("Sample 1", () => expect(do2(sample), equals(4988)));
+      test('Data', () => expect(do2(data), equals(52972)));
     });
   });
 }
@@ -31,8 +33,24 @@ Future<void> main() async {
 typedef Grid = Map<Position, Item>;
 
 int do1(Grid grid) {
-  grid = Grid.from(grid);
-  
+  grid = grid.cloneWithElvesHavingPower(3);
+  final f = fight(grid);
+  return f.$1 * f.$2.values.whereType<Creature>().map((c) => c.hitPoints).sum;
+}
+
+int do2(final Grid grid) {
+  final startingElves = grid.values.whereType<Elf>().length;
+  for (final power in xrange(2000)) 
+  {
+    final (rounds, g) = fight(grid.cloneWithElvesHavingPower(power + 4));
+    if (g.values.whereType<Elf>().length != startingElves) continue;
+    print(power);
+    return rounds * g.values.whereType<Creature>().map((c) => c.hitPoints).sum;
+  }
+  throw Exception();
+}
+
+(int, Grid) fight(Grid grid) {
   for(final round in xrange(0xFFFF)) {
     // print(round);
     // printGrid(grid);
@@ -47,8 +65,7 @@ int do1(Grid grid) {
       // print('$p');
       final enemies = grid.entries.where((it) => pc.isEnemy(it.value)).map((e) => e.key).toList();
       if (enemies.isEmpty) {
-        return (round) * grid.values.whereType<Creature>()
-          .map((e) => e.hitPoints).sum;
+        return (round, grid);
       }
       // If already adjacent to an enemy, skip pathfinding
       if (!enemies.any((e) => e.manhattanDistance(p) == 1)) {
@@ -73,7 +90,6 @@ int do1(Grid grid) {
   }
   throw Exception();
 }
-
 
 
 Position? pathFind(Position original, List<Position> destinations, Grid grid) {
@@ -126,6 +142,18 @@ abstract class Creature extends Item {
 class Elf extends Creature { @override bool isEnemy(Item? other) => other is Goblin; }
 class Goblin extends Creature { @override bool isEnemy(Item? other) => other is Elf; }
 class Wall extends Item {}
+
+extension on Grid {
+  Grid cloneWithElvesHavingPower(int power) => entries.toMap((it) => it.key, (it) { switch(it.value){
+    case Elf _:
+      final e = Elf(); 
+      e.attackPower = power; 
+      return e;
+    case Goblin _: return Goblin();
+    case Wall _: return Wall();
+    default: throw Exception();
+  }});
+}
 
 Grid parse(String s) => s.lines.indexed
   .flatmap((row) => row.$2.split('').indexed.map((col) => (col.$1, row.$1, col.$2)))
