@@ -14,12 +14,14 @@ import 'utils/xrange.dart';
 
 Future<void> main() async {
   final sample = parse(await getInput('day15.sample'));
+  final sample2 = parse(await getInput('day15.sample.2'));
   final data = parse(await getInput('day15'));
 
   group('Day15', (){
     group('Part 1', () {
-      test("Sample", () => expect(do1(sample), equals(27730)));
-      test('Data', () => expect(do1(data), equals(0)));
+      test("Sample 1", () => expect(do1(sample), equals(27730)));
+      test("Sample 2", () => expect(do1(sample2), equals(36334)));
+      test('Data', () => expect(do1(data), equals(229798)));
     });
     group('Part 2', () {
     });
@@ -32,16 +34,17 @@ int do1(Grid grid) {
   grid = Grid.from(grid);
   
   for(final round in xrange(0xFFFF)) {
-    print(round);
-    printGrid(grid);
-    final turnOrder = grid.entries.where((e) => e.value is Creature)
-      .map((it) => it.key).toList()..sort(readingOrder);
+    // print(round);
+    // printGrid(grid);
+    final turnOrder = (grid.entries.where((e) => e.value is Creature)
+      .toList()..sort((a, b) => readingOrder(a.key, b.key)))
+      .map((it) => it.value).whereType<Creature>().toList();
 
-    for (var p in turnOrder) {
-      final pc = grid[p];
+    for (var pc in turnOrder) {
       // skip newly dead creatures
-      if (pc is! Creature) continue;
-      print('$p');
+      if (pc.hitPoints <= 0) continue;
+      var p = grid.entries.where((e) => e.value == pc).first.key;
+      // print('$p');
       final enemies = grid.entries.where((it) => pc.isEnemy(it.value)).map((e) => e.key).toList();
       if (enemies.isEmpty) {
         return (round) * grid.values.whereType<Creature>()
@@ -51,10 +54,10 @@ int do1(Grid grid) {
       if (!enemies.any((e) => e.manhattanDistance(p) == 1)) {
         final targetSquare = pathFind(p, enemies.flatmap((e) => e.orthogonalNeighbors()).toSet().toList(), grid);
         if (targetSquare == null) continue;
-        grid[targetSquare[0]] = pc;
+        grid[targetSquare] = pc;
         grid.remove(p);
         // print('$p $targetSquare');
-        p = targetSquare[0];
+        p = targetSquare;
       }
       // Now moved, determine an enemy to attack
       final adjacentEnemies = enemies.where((e) => e.manhattanDistance(p) == 1)
@@ -73,104 +76,43 @@ int do1(Grid grid) {
 
 
 
-List<Position>? pathFind(Position original, List<Position> destinations, Grid grid) {
-  var (goals, shortest) = reachables(original, destinations.toSet(), grid);
-  if (goals.isEmpty || shortest is! int) return null;
-  final chosen = goals.reduce((a,b) => readingOrder(a, b) <= 0 ? a : b);
-  final temp = pathFind2(original, chosen, grid, shortest).toList();
-  return temp.reduce((a,b) => readingOrder(a.first, b.first) <= 0 ? a : b);
+Position? pathFind(Position original, List<Position> destinations, Grid grid) {
+  final List<({Position first, Position last, int length})> goals = [];
+  for(final v in [Vector.North, Vector.West, Vector.East, Vector.South]) {
+    final (g, s) = reachables(original, destinations.toSet(), grid, v);
+    if (g.isEmpty || s is! int) continue;
+    final gmap = g.map((it) => (first: original + v, last: it, length: s));
+    goals.addAll(gmap);
+  }
+  if (goals.isEmpty) return null;
+  final chosen = goals.whereMin((it) => it.length).reduce((a,b) => readingOrder(a.last, b.last) <= 0 ? a : b).last;
+  // print(goals.where((g) => g.last == chosen).toList());
+  final temp = goals.whereMin((it) => it.length).where((g) => g.last == chosen).reduce((a,b) => readingOrder(a.first, b.first) <= 0 ? a : b);
+  // print(temp);
+  return temp.first;
 }
 
-// List<Position>? pathFind(Position original, List<Position> destinations, Grid grid) {
-//   final goals = reachables(original, destinations.toSet(), grid).toSet();
-//   if (goals.isEmpty) return null;
-//   List<List<Position>> paths = [];
-//   int? shortest;
-//   final open = Queue<List<Position>>();
-//   open.add([original]);
-//   final closed = {original: 1};
-//   // final closed = <Position, int>{original: 0};
-//   while (open.isNotEmpty) {
-//     final current = open.removeFirst();
-//     if (shortest is int && goals.map((d) => d.manhattanDistance(current.last) + current.length).min >= shortest) continue;
-//     for (final neighbor in current.last.orthogonalNeighbors().where((n) => !current.contains(n) && grid[n] == null)) {
-//       final path = current + [neighbor];
-//       if ((closed[neighbor] ?? 0xFFFFFFFF) < path.length) continue;
-//       closed[neighbor] = [closed[neighbor] ?? 0xFFFFFFFF, path.length].min;
-//       // closed[neighbor] = path.length;
-//       if (goals.contains(neighbor)) {
-//         if (shortest is! int || path.length <= shortest) {
-//           paths.add(path);
-//           shortest = path.length;
-//         }
-//       }
-//       open.add(path);
-//     }
-//   }
 
-//   if (paths.isEmpty) throw Exception();
-
-//   final chosen = paths.reduce((a,b) => readingOrder(a.last, b.last) <= 0 ? a : b).last;
-//   return paths.where((p) => p.last == chosen).reduce((a,b) => readingOrder(a.first, b.first) <= 0 ? a : b).sublist(1);
-// }
-
-(Set<Position>, int?) reachables(Position original, Set<Position> goals, Grid grid) {
+(Set<Position>, int?) reachables(Position original, Set<Position> goals, Grid grid, Vector vopen) {
   final result = <Position>{};
   final open = Queue<(Position, int)>.from([(original, 0)]);
   final closed = {original};
   int? shortest;
   while (open.isNotEmpty) {
     final current = open.removeFirst();
-    if (shortest is int && current.$2 > shortest) break;
-    for (final neighbor in current.$1.orthogonalNeighbors().where((n) => !closed.contains(n) && grid[n] == null)) {
+    if (shortest is int && current.$2 >= shortest) break;
+    final neighbors = current.$2 == 0 ? [original + vopen] : current.$1.orthogonalNeighbors();
+    for (final neighbor in neighbors.where((n) => !closed.contains(n) && grid[n] == null)) {
       if (goals.contains(neighbor)) {
         result.add(neighbor);
         shortest = shortest ?? (current.$2 + 1);
+        continue;
       }
       closed.add(neighbor);
       open.add((neighbor, current.$2 + 1));
     }
   }
   return (result, shortest);
-}
-
-typedef Step = List<Position>;
-
-Iterable<List<Position>> pathFind2(Position original, Position destination, Grid grid, final int shortest) sync* {
-  bool isEmpty(Position p) => !grid.containsKey(p);
-  int priorityFct(List<Position> p) => p.length + p.last.manhattanDistance(destination);
-  final open = PriorityQueue<Step>((a,b) => priorityFct(a) - priorityFct(b));
-
-  for(final neighbor in original.orthogonalNeighbors().where((n) => isEmpty(n))) {
-    if (neighbor == destination) {
-      yield [neighbor]; 
-      return;
-    }
-    else {
-      open.add([neighbor]);
-    }
-  }
-
-  if (shortest == 1) return;
-
-  while (open.isNotEmpty) {
-    final current = open.removeFirst();
-    for(final neighbor in current.last.orthogonalNeighbors().where((n) => isEmpty(n) && !current.contains(n))) {
-      final path = current + [neighbor];
-      if (neighbor == destination) {
-        if (path.length <= shortest) {
-          yield path;
-        } else {
-          return;
-        }
-        continue;
-      }
-
-      if (priorityFct(path) <= shortest) {
-        open.add(path);
-      }
-    }
-  }
 }
 
 abstract class Item {}
