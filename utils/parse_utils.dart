@@ -38,3 +38,22 @@ Parser<(T1, T2)> parserFor2<T1, T2>(String format, Parser<T1> p1, Parser<T2> p2)
   if (a3.isNotEmpty) xp2 = xp2.after(a3);
   return seq2(xp1, xp2);
 }
+
+Parser<(T1, T2, T3, T4)> parserFor4<T1, T2, T3, T4>(String format, Parser<T1> p1, Parser<T2> p2, Parser<T3> p3, Parser<T4> p4) {
+  final matches = RegExp(r"\{\}").allMatches(format).toList();
+  final a1 = format.substring(0, matches[0].start).trim();
+  final a2 = format.substring(matches[0].end, matches[1].start).trim();
+  final a3 = format.substring(matches[1].end, matches[2].start).trim();
+  final a4 = format.substring(matches[2].end, matches[3].start).trim();
+  final a5 = format.substring(matches[3].end).trim();
+  var xp1 = p1;
+  var xp2 = p2;
+  var xp3 = p3;
+  var xp4 = p4;
+  if (a1.isNotEmpty) xp1 = xp1.before(a1);
+  if (a2.isNotEmpty) xp1 = xp1.after(a2);
+  if (a3.isNotEmpty) xp2 = xp2.after(a3);
+  if (a4.isNotEmpty) xp3 = xp3.after(a4);
+  if (a5.isNotEmpty) xp4 = xp4.after(a5);
+  return seq4(xp1, xp2, xp3, xp4);
+}

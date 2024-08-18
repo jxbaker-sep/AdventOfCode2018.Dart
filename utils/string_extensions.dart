@@ -3,7 +3,7 @@ extension MyStringExtensions on String {
     return split("\n").map((l) => l.trim()).where((t) => t.isNotEmpty).toList();
   }
 
-  List<List<String>> paragraphs() {
+  List<List<String>> get paragraphs {
     final List<List<String>> result = [];
     var paragraph = <String>[];
     for (final line in split('\n').map((s) => s.trim())) {
