@@ -22,85 +22,103 @@ Future<void> main() async {
 
   group('Day17', (){
     group('Part 1', () {
-      test('Sample', () => expect(do1(sample), equals(57)));
-      test('Data', () => expect(do1(data), equals(0)));
+      test('Sample', () => expect(do1(sample), equals((57, 29))));
+      test('Data', () => expect(do1(data), equals((31788, 25800))));
     });
     group('Part 2', () {
     });
   });
 }
 
-int do1(Grid grid) {
+(int, int) do1(Grid grid) {
   final ys = grid.keys.map((k) => k.y).bounds;
-  final spring = Position(500, ys.min);
+  final spring = Position(500, ys.min-1);
   drop(grid, spring, ys);
   // printGrid(grid);
-  return grid.entries
-    .where((e) => ys.contains(e.key.y))
-    .where((v) => v.value == State.Water || v.value == State.Seen)
-    .length;
-}
-
-void printGrid(Grid grid) {
-  final ys = grid.keys.map((k) => k.y).bounds;
-  final xs = grid.keys.map((k) => k.x).bounds;
-  for (var y = ys.min; y <= ys.max; y++) {
-    var s = "";
-    for (var x = xs.min; x <= xs.max; x++) {
-      s += switch (grid[Position(x,y)]) {
-        null => ' ',
-        State.Wall => '#',
-        State.Seen => '|',
-        State.Water => '~'
-      };
-    }
-    print(s);
-  }
-
-}
-
-extension on State? {
-  bool get isEmpty => (this ?? State.Seen) == State.Seen;
+  return (
+    grid.entries
+      .where((e) => ys.contains(e.key.y))
+      .where((v) => v.value == State.Water || v.value == State.Seen)
+      .length, 
+    grid.entries
+      .where((e) => ys.contains(e.key.y))
+      .where((v) => v.value == State.Water)
+      .length
+  );
 }
 
 void drop(Grid grid, Position start, Bounds ys) {
   if (start.y > ys.max) return;
   var current = start;
-  if (!grid[current].isEmpty) throw Exception();
+  if (grid[current] == State.Seen) return;
+  if (grid[current] != null) throw Exception();
   grid[current] = State.Seen;
-  while (grid[current + Vector.South].isEmpty) {
+  while ((grid[current + Vector.South] ?? State.Seen) == State.Seen) {
     current = current + Vector.South;
+    if (grid[current] == State.Seen) return;
     if (current.y > ys.max) return;
     grid[current] = State.Seen;
   }
 
-  // find exit
-  var left = findExitOrWall(grid, current, Vector.West);
-  var right = findExitOrWall(grid, current, Vector.East);
-  while (current.y >= ys.min) {
-    if (left.y == current.y && right.y == current.y) { // hemmed by walls
-      for(var x = left.x + 1 ; x < right.x ; x++) {
+  while (true) {
+    var leftExit = findExit(grid, current, Vector.West);
+    if (leftExit != null) {
+      while (leftExit != null) {
+        drop(grid, leftExit, ys);
+        if (grid[leftExit] != State.Water) {
+          leftExit = null;
+        } else {
+          leftExit = findExit(grid, leftExit + Vector.North, Vector.West);
+        }
+      }
+      continue;
+    }
+
+    var rightExit = findExit(grid, current, Vector.East);
+    if (rightExit != null) {
+      while (rightExit != null) {
+        drop(grid, rightExit, ys);
+        if (grid[rightExit] != State.Water) {
+          rightExit = null;
+        } else {
+          rightExit = findExit(grid, rightExit + Vector.North, Vector.East);
+        }
+      }
+      continue;
+    }
+
+    // find exit
+    final leftWall = findWall(grid, current, Vector.West);
+    final rightWall = findWall(grid, current, Vector.East);
+    if (leftWall != null && rightWall != null) {
+      // hemmed by walls
+      for(var x = leftWall.x + 1 ; x < rightWall.x ; x++) {
         grid[Position(x, current.y)] = State.Water;
       }
       current += Vector.North;
-      left = findExitOrWall(grid, current, Vector.West);
-      right = findExitOrWall(grid, current, Vector.East);
       continue;
     }
     break;
   }
 
-  if (left.y != current.y) drop(grid, left, ys);
-  if (right.y != current.y) drop(grid, right, ys);
 }
 
-Position findExitOrWall(Grid grid, Position start, Vector v) {
+Position? findWall(Grid grid, Position start, Vector v) {
   var current = start + v;
   while (true) {
     if (grid[current] == State.Wall) return current;
-    if (grid[current] == State.Water) throw Exception();
+    if (grid[current + Vector.South] == null) return null;
+    current += v;
+  }
+}
+
+Position? findExit(Grid grid, Position start, Vector v) {
+  if (grid[start] == null) grid[start] = State.Seen;
+  var current = start + v;
+  while (true) {
+    if (grid[current] != null) return null;
     grid[current] = State.Seen;
-    if (grid[current + Vector.South].isEmpty) return current + Vector.South;
+    if (grid[current + Vector.South] == null) return current + Vector.South;
     current += v;
   }
 }
@@ -120,3 +138,20 @@ Grid parse(String s) {
 final matcherP = [matcher1P, matcher2P].toChoiceParser();
 final matcher1P = parserFor3("y={}, x={}..{}", number, number, number).map((m) => [m.$2, m.$3, m.$1, m.$1]);
 final matcher2P = parserFor3("x={}, y={}..{}", number, number, number).map((m) => [m.$1, m.$1, m.$2, m.$3]);
+
+void printGrid(Grid grid) {
+  final ys = grid.keys.map((k) => k.y).bounds;
+  final xs = grid.keys.map((k) => k.x).bounds;
+  for (var y = ys.min; y <= ys.max; y++) {
+    var s = "";
+    for (var x = xs.min; x <= xs.max; x++) {
+      s += switch (grid[Position(x,y)]) {
+        null => ' ',
+        State.Wall => '#',
+        State.Seen => '|',
+        State.Water => '~'
+      };
+    }
+    print(s);
+  }
+}
