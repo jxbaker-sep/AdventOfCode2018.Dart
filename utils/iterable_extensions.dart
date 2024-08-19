@@ -42,11 +42,19 @@ extension MyIterableExtensions<T> on Iterable<T> {
   }
 }
 
+class Bounds {
+  final int min;
+  final int max;
+
+  Bounds(this.min, this.max);
+  Bounds extend(int other) {
+    return Bounds(other < min ? other : min, other > max ? other : max);
+  }
+  bool contains(int other) => min <= other && other <= max;
+}
+
 extension MyIterableNumericExtension on Iterable<int> {
   int get product => reduce((a,b) => a*b);
 
-  ({int min, int max}) get bounds => fold((min: first, max: first), (p, c) => (
-    min: c < p.min ? c : p.min,
-    max: c > p.max ? c : p.max
-  ));
+  Bounds get bounds => fold(Bounds(first, first), (p, c) => p.extend(c));
 }

@@ -32,13 +32,11 @@ Future<void> main() async {
 
 int do1(Grid grid) {
   final ys = grid.keys.map((k) => k.y).bounds;
-  final spring = Position(500, ys.min - 1);
-  while (drop(grid, spring, ys.max)) {
-    // do nothing;
-  }
+  final spring = Position(500, ys.min);
+  drop(grid, spring, ys);
   // printGrid(grid);
   return grid.entries
-    .where((e) => e.key.y >= ys.min && e.key.y <= ys.max)
+    .where((e) => ys.contains(e.key.y))
     .where((v) => v.value == State.Water || v.value == State.Seen)
     .length;
 }
@@ -65,34 +63,35 @@ extension on State? {
   bool get isEmpty => (this ?? State.Seen) == State.Seen;
 }
 
-bool drop(Grid grid, Position start, int maxy) {
-  if (start.y > maxy) return false;
+void drop(Grid grid, Position start, Bounds ys) {
+  if (start.y > ys.max) return;
   var current = start;
   if (!grid[current].isEmpty) throw Exception();
   grid[current] = State.Seen;
   while (grid[current + Vector.South].isEmpty) {
     current = current + Vector.South;
-    if (current.y > maxy) return false;
+    if (current.y > ys.max) return;
     grid[current] = State.Seen;
   }
 
   // find exit
-  final left = findExitOrWall(grid, current, Vector.West);
-  final right = findExitOrWall(grid, current, Vector.East);
-  if (left.y == current.y && right.y == current.y) { // hemmed by walls
-    for(var x = left.x + 1 ; x < right.x ; x++) {
-      grid[Position(x, current.y)] = State.Water;
+  var left = findExitOrWall(grid, current, Vector.West);
+  var right = findExitOrWall(grid, current, Vector.East);
+  while (current.y >= ys.min) {
+    if (left.y == current.y && right.y == current.y) { // hemmed by walls
+      for(var x = left.x + 1 ; x < right.x ; x++) {
+        grid[Position(x, current.y)] = State.Water;
+      }
+      current += Vector.North;
+      left = findExitOrWall(grid, current, Vector.West);
+      right = findExitOrWall(grid, current, Vector.East);
+      continue;
     }
-    return true;
+    break;
   }
 
-  var result = false;
-
-  if (left.y != current.y) result = drop(grid, left, maxy);
-  if (right.y != current.y) result = drop(grid, right, maxy) || result;
-
-
-  return result;
+  if (left.y != current.y) drop(grid, left, ys);
+  if (right.y != current.y) drop(grid, right, ys);
 }
 
 Position findExitOrWall(Grid grid, Position start, Vector v) {
