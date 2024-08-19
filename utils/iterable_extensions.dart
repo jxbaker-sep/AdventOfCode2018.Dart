@@ -19,8 +19,6 @@ extension MyIterableExtensions<T> on Iterable<T> {
     }).$1;
   }
 
-
-
   Iterable<T2> flatmap<T2>(Iterable<T2> Function(T t) callback) {
     return map(callback).expand((i)=>i);
   }
@@ -46,4 +44,9 @@ extension MyIterableExtensions<T> on Iterable<T> {
 
 extension MyIterableNumericExtension on Iterable<int> {
   int get product => reduce((a,b) => a*b);
+
+  ({int min, int max}) get bounds => fold((min: first, max: first), (p, c) => (
+    min: c < p.min ? c : p.min,
+    max: c > p.max ? c : p.max
+  ));
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:collection/collection.dart';
 import 'package:petitparser/petitparser.dart';
 import 'package:test/test.dart';
@@ -8,8 +6,6 @@ import 'utils/input.dart';
 import 'utils/parse_utils.dart';
 import 'utils/string_extensions.dart';
 import 'utils/xrange.dart';
-
-
 
 Future<void> main() async {
   final samples = parseSamples(await getInput('day16'));
@@ -46,7 +42,6 @@ int do2(List<Sample> samples, List<Instruction> program) {
     } 
   }
 
-  // for(final i in xrange(16)) print('$i ${mopcodes[i]!.length}');
   if (zopcodes.any((v) => v.length != 1)) throw Exception();
 
   return program.fold([0, 0, 0, 0], (r, i) => zopcodes[i.opcode].first(i, r))[0];

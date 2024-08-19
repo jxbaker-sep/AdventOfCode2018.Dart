@@ -21,7 +21,7 @@ Future<void> main() async {
 
     group('Part 2', () {
       test("Sample", () => expect(do2(sample, 32), equals(16)));
-      test('Data', () => expect(do2(data, 10000), equals(0)));
+      test('Data', () => expect(do2(data, 10000), equals(47841)));
     });
   });
 }
