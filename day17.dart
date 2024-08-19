@@ -18,12 +18,12 @@ typedef Grid = Map<Position, State>;
 
 Future<void> main() async {
   final sample = parse(await getInput('day17.sample'));
-  // final data = parse(await getInput('day17'));
+  final data = parse(await getInput('day17'));
 
   group('Day17', (){
     group('Part 1', () {
       test('Sample', () => expect(do1(sample), equals(57)));
-      // test('Data', () => expect(do1(data), equals(57)));
+      test('Data', () => expect(do1(data), equals(0)));
     });
     group('Part 2', () {
     });
