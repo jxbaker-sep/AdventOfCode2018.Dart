@@ -12,6 +12,8 @@ class Position {
   @override
   int get hashCode => Object.hash(x, y);
 
+  int compare(Position other) => y == other.y ? x - other.x : y - other.y;
+
   Position operator+(Vector other) => Position(x + other.x, y + other.y);
 
   // ignore: constant_identifier_names

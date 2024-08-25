@@ -14,7 +14,6 @@ enum State {
   Seen
 }
 
-typedef Grid = Map<Position, State>;
 
 Future<void> main() async {
   final sample = parse(await getInput('day17.sample'));
@@ -29,6 +28,8 @@ Future<void> main() async {
     });
   });
 }
+
+typedef Grid = Map<Position, State>;
 
 (int, int) do1(Grid grid) {
   final ys = grid.keys.map((k) => k.y).bounds;
