@@ -42,11 +42,11 @@ int do1(Grid grid, final int minutes) {
     for(final item in grid.entries) {
       switch(item.value) {
         case Acre.open:
-          temp[item.key] = item.key.neighbors().where((n) => grid[n] == Acre.trees).length >= 3 ?
+          temp[item.key] = item.key.neighbors().where((n) => grid[n] == Acre.trees).take(3).length >= 3 ?
             Acre.trees : Acre.open;
           break;
         case Acre.trees:
-          temp[item.key] = item.key.neighbors().where((n) => grid[n] == Acre.lumberyard).length >= 3 ?
+          temp[item.key] = item.key.neighbors().where((n) => grid[n] == Acre.lumberyard).take(3).length >= 3 ?
             Acre.lumberyard : Acre.trees;
           break;
         case Acre.lumberyard:

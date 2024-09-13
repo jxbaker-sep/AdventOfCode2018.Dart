@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:petitparser/petitparser.dart';
 import 'package:test/test.dart';
 
@@ -6,7 +5,6 @@ import 'utils/input.dart';
 import 'utils/iterable_extensions.dart';
 import 'utils/parse_utils.dart';
 import 'utils/position.dart';
-import 'utils/xrange.dart';
 
 enum State {
   Water,
